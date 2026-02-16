@@ -495,8 +495,9 @@ class DocumentDbIndexTool(IndexToolConstants):
                         for key in metadata[db_name][collection_name][self.INDEXES][index_name]['weights']:
                             keys_to_create.append((key, 'text'))
 
+                        text_index_internal_options = {'weights', self.INDEX_NAMESPACE}
                         for k in metadata[db_name][collection_name][self.INDEXES][index_name]:
-                            if k != self.INDEX_KEY and k != self.INDEX_VERSION and k not in DocumentDbUnsupportedFeatures.IGNORED_INDEX_OPTIONS:
+                            if k != self.INDEX_KEY and k != self.INDEX_VERSION and k not in DocumentDbUnsupportedFeatures.IGNORED_INDEX_OPTIONS and k not in text_index_internal_options:
                                 # this key is an additional index option
                                 index_options[k] = metadata[db_name][collection_name][self.INDEXES][index_name][k]
                     else:
